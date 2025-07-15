@@ -6,6 +6,7 @@
 #include "Direct3D.h"
 #include "Quad.h"
 #include "Camera.h"
+#include "Dice.h"
 
 
 HWND hWnd = nullptr;
@@ -66,9 +67,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MYFIRSTGAME));
 
     MSG msg = {};
+    Dice* dice = new Dice();
+    dice->Initialize();
 
-    Quad* q = new Quad();
-    q->Initialize();
+
+    /*Quad* q = new Quad();
+    q->Initialize();*/
     if (FAILED(hr))
     {
         return 0;
@@ -102,15 +106,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle));
         XMMATRIX matrix = XMMatrixRotationZ(XMConvertToRadians(angle));
         XMMATRIX Mat = mat * matrix;
-        q->Draw(Mat);
+        dice->Draw(Mat);
        
         angle += 0.05f;
        // Angle += 0.05f;
         Direct3D::EndDraw();
 
     }
-    q->Release();
-    SAFE_DELETE(q);
+    dice->Release();
+    SAFE_DELETE(dice);
 
     Direct3D::Release();
 
