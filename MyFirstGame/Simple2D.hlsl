@@ -12,8 +12,7 @@ cbuffer global
 {
     float4x4 matWVP; // ワールド・ビュー・プロジェクションの合成行列
     float4x4 matNormal; //ワールド行列
-    float4   diffuseColor; // ディフューズ色
-    bool     useTexture; // テクスチャーを使うかどうか
+    float4x4 matWorld;
 };
 
 //───────────────────────────────────────
@@ -24,13 +23,13 @@ struct VS_OUT
                  // セマンティクス
     float4 pos : SV_POSITION; //位置
     float2 uv : TEXCOORD; //UV座標
-    float4 color : COLOR; //色（明るさ）
+    //float4 color : COLOR; //色（明るさ）
 };
 
 //───────────────────────────────────────
 // 頂点シェーダ
 //───────────────────────────────────────
-VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
+VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD)
 {
 	//ピクセルシェーダーへ渡す情報
     VS_OUT outData;
@@ -41,14 +40,14 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
     outData.uv = uv.xy;
     
    
-    normal = mul(normal, matNormal);
-    normal = normalize(normal);
-    normal.w = 0;
+    //normal = mul(normal, matNormal);
+    //normal = normalize(normal);
+    //normal.w = 0;
     
-    float4 light = float4(-1, 0.5, -0.7, 0);
-    light = normalize(light);
-    outData.color = clamp(dot(normal, light), 0, 1);
-    
+    //float4 light = float4(-1, 0.5, -0.7, 0);
+    //light = normalize(light);
+    //outData.color = clamp(dot(normal, light), 0, 1);
+   // outData.color = float4(1, 1, 1, 1);
 	//まとめて出力
     return outData;
 }
@@ -59,20 +58,14 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
 float4 PS(VS_OUT inData) : SV_Target
 {
    // return float4(1, 1, 0, 1);
-    float4 color;
-    if (useTexture == 1)
-    {
-        color = g_texture.Sample(g_sampler, inData.uv) * inData.color;
-    }
-    else
-    {
-        color = float4(1, 1, 1, 1); 
-    }
+    //float4 color = g_texture.Sample(g_sampler, inData.uv);
     
     //float4 ret = float4(inData.uv.x, inData.uv.y,  0, 1);
    // return color;
     
    // float4 diffuse = g_texture.Sample(g_sampler, inData.uv) * inData.color;
     //float4 ambient = g_texture.Sample(g_sampler, inData.uv) * float4(0.2, 0.2, 0.2, 1);
-    return color;
+   // return color + ambient;
+    
+    return g_texture.Sample(g_sampler, inData.uv);
 }

@@ -1,74 +1,42 @@
-#include "Quad.h"
+#include "Sprite.h"
 #include <DirectXMath.h>
-#include "Camera.h"
 #include "Texture.h"
+//#include "Camera.h"
 
-
-Quad::Quad()
+Sprite::Sprite()
 	: pVertexBuffer_(nullptr),
 	pIndexBuffer_(nullptr),
 	pConstantBuffer_(nullptr),
 	pTexture_(nullptr)
 {
 	//メンバいないのでスルー
-	
+
 }
 
-Quad::~Quad()
+Sprite::~Sprite()
 {
 }
 
-HRESULT Quad::Initialize()
+HRESULT Sprite::Initialize()
 {
 	HRESULT hr;
 	VERTEX vertices[] =
 	{
-		{ XMVectorSet(-1.0f,  1.0f, -1.0f, 0.0f),XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f) },   
-		{ XMVectorSet(1.0f,  1.0f, -1.0f, 0.0f),	XMVectorSet(0.25f, 0.0f, 0.0f, 0.0f) },  
-		{ XMVectorSet(1.0f, -1.0f, -1.0f, 0.0f),	XMVectorSet(0.25f, 0.5f, 0.0f, 0.0f) },   
-		{ XMVectorSet(-1.0f, -1.0f, -1.0f, 0.0f),XMVectorSet(0.0f, 0.5f, 0.0f, 0.0f) },	 
-
-		/*{ XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f),  XMVectorSet(0.25f, 0.5f, 0.0f, 0.0f)},
-		{ XMVectorSet(-1.0f, 1.0f, 1.0f, 0.0f), XMVectorSet(0.5f, 0.5f, 0.0f, 0.0f)},
-		{ XMVectorSet(-1.0f,  -1.0f, 1.0f, 0.0f), XMVectorSet(0.5f, 1.0f, 0.0f, 0.0f) },   
-		{ XMVectorSet(1.0f, -1.0f, 1.0f, 0.0f), XMVectorSet(0.25f, 1.0f, 0.0f, 0.0f) }, 
-
-		{ XMVectorSet(1.0f, 1.0f, -1.0f, 0.0f),  XMVectorSet(0.25f, 0.0f, 0.0f, 0.0f)},
-		{ XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f),  XMVectorSet(0.25f, 0.5f, 0.0f, 0.0f)},
-		{ XMVectorSet(1.0f, -1.0f, 1.0f, 0.0f),  XMVectorSet(0.5f, 0.5f, 0.0f, 0.0f)},
-		{ XMVectorSet(1.0f, -1.0f, -1.0f, 0.0f),  XMVectorSet(0.5f, 0.0f, 0.0f, 0.0f)},
-
-		{ XMVectorSet(-1.0f, 1.0f, 1.0f, 0.0f),  XMVectorSet(0.0f, 0.5f, 0.0f, 0.0f)},
-		{ XMVectorSet(-1.0f, 1.0f, -1.0f, 0.0f),  XMVectorSet(0.25f, 0.5f, 0.0f, 0.0f)},
-		{ XMVectorSet(-1.0f, -1.0f, -1.0f, 0.0f),  XMVectorSet(0.25f, 1.0f, 0.0f, 0.0f)},
-		{ XMVectorSet(-1.0f, -1.0f, 1.0f, 0.0f),  XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f)},
-
-		{ XMVectorSet(-1.0f, 1.0f, 1.0f, 0.0f),  XMVectorSet(0.5f, 0.0f, 0.0f, 0.0f)},
-		{ XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f),  XMVectorSet(0.75f, 0.0f, 0.0f, 0.0f)},
-		{ XMVectorSet(1.0f, 1.0f, -1.0f, 0.0f),  XMVectorSet(0.75f, 0.5f, 0.0f, 0.0f)},
-		{ XMVectorSet(-1.0f, 1.0f, -1.0f, 0.0f),  XMVectorSet(0.5f, 0.5f, 0.0f, 0.0f)},
-
-		{ XMVectorSet(-1.0f, -1.0f, -1.0f, 0.0f),  XMVectorSet(0.75f, 0.0f, 0.0f, 0.0f)},
-		{ XMVectorSet(1.0f, -1.0f, -1.0f, 0.0f),  XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f)},
-		{ XMVectorSet(1.0f, -1.0f, 1.0f, 0.0f),  XMVectorSet(1.0f, 0.5f, 0.0f, 0.0f)},
-		{ XMVectorSet(-1.0f, -1.0f, 1.0f, 0.0f),  XMVectorSet(0.75f, 0.5f, 0.0f, 0.0f)},
+		{{ -1.0f,  1.0f, 0.0f, 0.0f}, {0.0f,  0.0f}},// 四角形の頂点（左上）
+		{{  1.0f,  1.0f, 0.0f, 0.0f}, {1.0f,  0.0f}},// 四角形の頂点（右上）
+		{{  1.0f, -1.0f, 0.0f, 0.0f}, {1.0f,  1.0f}},// 四角形の頂点（右下）
+		{{ -1.0f, -1.0f, 0.0f, 0.0f}, {0.0f,  1.0f}}	// 四角形の頂点（左下）	}
 
 
-*/
 
-		
-		//{{position}, {UV}}
-		//{{ -1.0f, 1.0f, 0.0f, 0.0f},{0.0f, 0.0f, 0.0f, 0.0f}},	//左上
-		//{{  1.0f, 1.0f, 0.0f, 0.0f},{1.0f, 0.0f, 0.0f, 0.0f}},	//右上
-		//{{  1.0f,-1.0f, 0.0f, 0.0f},{1.0f, 1.0f, 0.0f, 0.0f}},	//右下
-		//{{ -1.0f,-1.0f, 0.0f, 0.0f},{0.1f, 0.0f, 0.0f, 0.0f}}	//左下
+
 	};
 
-	const int numVertex = sizeof(vertices) / sizeof(vertices[0]);
+	//const int numVertex = sizeof(vertices) / sizeof(vertices[0]);
 
 	// 頂点データ用バッファの設定
 	D3D11_BUFFER_DESC bd_vertex;
-	bd_vertex.ByteWidth = sizeof(VERTEX) * numVertex;
+	bd_vertex.ByteWidth = sizeof(vertices);
 	bd_vertex.Usage = D3D11_USAGE_DEFAULT;
 	bd_vertex.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd_vertex.CPUAccessFlags = 0;
@@ -84,22 +52,10 @@ HRESULT Quad::Initialize()
 	}
 
 	//インデックス情報
-	int index[] = 
+	int index[] =
 	{ 0,2,3,
 	  0,1,2,
-	  4,6,7,
-	  4,5,6,
-	  8,10,11,
-	  8,9,10,
-	  12,14,15,
-	  12,13,14,
-	  16,18,19,
-	  16,17,18,
-	  20,22,23,
-	  20,21,22
-
-	
-	 };	
+	};
 
 	// インデックスバッファを生成する
 	D3D11_BUFFER_DESC   bd;
@@ -142,17 +98,18 @@ HRESULT Quad::Initialize()
 	return S_OK;
 }
 
-void Quad::Draw(XMMATRIX& worldMatrix)
+void Sprite::Draw(XMMATRIX& worldMatrix)
 {
+	Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
 	//コンスタントバッファに渡す情報
-	
+
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	CONSTANT_BUFFER cb;
-	cb.matWVP = XMMatrixTranspose(worldMatrix * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+	//cb.matWVP = XMMatrixTranspose(worldMatrix * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+	cb.matWorld = XMMatrixTranspose(worldMatrix);
 
 
-	
 
 
 
@@ -180,10 +137,10 @@ void Quad::Draw(XMMATRIX& worldMatrix)
 	ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
 	Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
 
-	Direct3D::pContext->DrawIndexed(36, 0, 0);
+	Direct3D::pContext->DrawIndexed(6, 0, 0);
 }
 
-void Quad::Release()
+void Sprite::Release()
 {
 	SAFE_RELEASE(pConstantBuffer_);
 	SAFE_RELEASE(pIndexBuffer_);
