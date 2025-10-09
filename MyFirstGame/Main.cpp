@@ -4,13 +4,14 @@
 #include "framework.h"
 #include "Main.h"
 #include "Engine\\Direct3D.h"
-//#include "Quad.h"
+
 #include "Engine\\Camera.h"
-//#include "Dice.h"
-#include "Engine\\Sprite.h"
+
+
 #include "Engine\\Transform.h"
-#include "Engine\\Fbx.h"
+
 #include "Engine\\Input.h"
+#include "Engine\\RootJob.h"
 
 HWND hWnd = nullptr;
 
@@ -21,6 +22,8 @@ HWND hWnd = nullptr;
 const wchar_t* WIN_CLASS_NAME = L"SAMPLE GAME WINDOW"; // ウィンドウ クラス名
 const int WINDOW_WIDTH = 800;  //ウィンドウの幅
 const int WINDOW_HEIGHT = 600; //ウィンドウの高さ //SVGAサイズ
+
+RootJob* pRootJob = nullptr;
 
 
 // グローバル変数:
@@ -74,20 +77,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg = {};
 
+    pRootJob = new RootJob(nullptr);
+    pRootJob->Initialize();
 
-    //Quad* q = new Quad();
-    //Dice* dice = new Dice();
-    //Sprite* sprite = new Sprite();
-    Fbx* fbx = new Fbx();
-    fbx->Load("Oden.fbx");
-
-    //hr = q->Initialize();
-    //hr = dice->Initialize();
-   // hr = sprite->Initialize();
-    if (FAILED(hr))
-    {
-        return 0;
-    }
+   
 
 
     // メイン メッセージ ループ:
@@ -107,6 +100,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         Input::Update();
 
+        pRootJob->Update();
+
+
         if (Input::IsMouseButtonDown(0))
         {
             static int cnt = 0;
@@ -119,15 +115,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
 
 
-        /*if (Input::IsKeyDown(DIK_ESCAPE))
-        {
-            static int cnt = 0;
-            cnt++;
-            if (cnt >= 3)
-            {
-                PostQuitMessage(0);
-            }
-        }*/
+        
 
 
         Direct3D::BeginDraw();
@@ -143,27 +131,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         
 
 
-        //XMMATRIX mat = XMMatrixIdentity();
-        static Transform trans;
-        trans.position_.x = 1.0f;
-        trans.rotate_.y += 0.1f;
-        trans.Calculation();
-        // XMMATRIX Mtrs = trans.GetWorldMatrix();
-         //sprite->Draw(Mtrs);
-        fbx->Draw(trans);
+        
+        
 
 
 
         Direct3D::EndDraw();
     }
 
-    //q->Release();
-    //SAFE_DELETE(q);
-    //dice->Release();
-    //sprite->Release();
-    //SAFE_DELETE(dice);
+    pRootJob->Release();
 
-    SAFE_DELETE(fbx);
+    
     Input::Release();
 
     Direct3D::Release();
