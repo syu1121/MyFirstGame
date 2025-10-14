@@ -17,7 +17,7 @@ GameObject::~GameObject()
 void GameObject::DrawSub()
 {
 	// 0.自分を描画
-	this->Draw();
+	Draw();
 	// 1.子オブジェクトを描画　childListの各要素に対してDrawを呼ぶ
 	for (auto child : childList_)
 	{

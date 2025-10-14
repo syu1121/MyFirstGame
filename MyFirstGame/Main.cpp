@@ -120,14 +120,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         Direct3D::BeginDraw();
 
-        //描画処理
-        //static float angle = 0.0f;
-        //XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(angle));
-        //mat *= XMMatrixTranslation(0.0f, 0.0f, 5.0f); //Z軸方向に5.0f移動
-        //q->Draw(mat);
-        //dice->Draw(mat); // ダイスの描画
-        //angle += 0.05f; //角度を更新
-
+        pRootJob->DrawSub();
         
 
 
