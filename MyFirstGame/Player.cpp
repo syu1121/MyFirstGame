@@ -36,7 +36,11 @@ void Player::Draw()
 
 void Player::Release()
 {
-	pFbx_->Release();
-	delete pFbx_;
-	pFbx_ = nullptr;
+	if (pFbx_)
+	{
+
+		pFbx_->Release();
+		delete pFbx_;
+		pFbx_ = nullptr;
+	}
 }

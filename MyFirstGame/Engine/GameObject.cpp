@@ -24,3 +24,24 @@ void GameObject::DrawSub()
 		child->DrawSub();
 	}
 }
+
+void GameObject::UpdateSub()
+{
+	this->Update();
+	for (auto child : childList_)
+	{
+		child->UpdateSub();
+	}
+}
+
+void GameObject::ReleaseSub()
+{
+	this->Release();
+	for (auto child : childList_)
+	{
+		child->ReleaseSub();
+	}
+
+
+}
+
