@@ -15,7 +15,7 @@ protected:
 	Transform	transform_;
 	GameObject*	pParent_;
 	string	objectName_;
-
+	
 public:
 	GameObject();
 	GameObject(GameObject* parent, const std::string& name);
@@ -29,12 +29,17 @@ public:
 	void UpdateSub();
 	void ReleaseSub();
 
+	void SetPosition(XMFLOAT3 position);
+	void SetPosition(float x, float y, float z);
+
 	template<class T>
-	void Instantiate(GameObject* parent)
+	GameObject* Instantiate(GameObject* parent)
 	{
 		T* obj = new T(parent);
 		obj->Initialize();
 		childList_.push_back(obj);
+		return (obj);
 	}
 
+	
 };
