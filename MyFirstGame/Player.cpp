@@ -26,11 +26,17 @@ void Player::Initialize()
 	pRChildOden_->SetPosition(2.0f, 1.0f, 0.0f);
 	pLChildOden_->SetPosition(-2.0f, 1.0f, 0.0f);
 	pTChildOden_->SetPosition(0.0f, 5.0f, 0.0f);
+
 }
 
 void Player::Update()
 {
 	transform_.rotate_.y += 1.0f;
+
+	if (transform_.rotate_.y > 720.0f)
+	{
+		KillMe();
+	}
 }
 
 void Player::Draw()

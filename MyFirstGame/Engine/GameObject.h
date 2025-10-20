@@ -9,13 +9,17 @@ using std::list;
 
 class GameObject
 {
+
 protected:
 
 	list<GameObject *> childList_;
 	Transform	transform_;
 	GameObject*	pParent_;
 	string	objectName_;
-	
+private:
+
+	bool isDead_;
+
 public:
 	GameObject();
 	GameObject(GameObject* parent, const std::string& name);
@@ -31,6 +35,7 @@ public:
 
 	void SetPosition(XMFLOAT3 position);
 	void SetPosition(float x, float y, float z);
+	void KillMe();
 
 	template<class T>
 	GameObject* Instantiate(GameObject* parent)
