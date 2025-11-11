@@ -15,7 +15,7 @@ TestScene::~TestScene()
 
 void TestScene::Initialize()
 {
-    hModel_ = Model::Load("oden.fbx");
+    hModel_ = Model::Load("sikaku.fbx");
     assert(hModel_ >= 0);
 }
 
@@ -35,7 +35,7 @@ void TestScene::Draw()
 {
     Model::Draw(hModel_);
 
-    MessageBoxA(0, "•\Ž¦‚³‚ê‚½", "TestScene", MB_OK);
+   // MessageBoxA(0, "•\Ž¦‚³‚ê‚½", "TestScene", MB_OK);
 }
 
 void TestScene::Release()

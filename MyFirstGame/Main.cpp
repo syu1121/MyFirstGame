@@ -2,7 +2,6 @@
 //
 
 #include "framework.h"
-#include <cstdlib>
 #include "Main.h"
 #include "Engine\\Direct3D.h"
 #include "Engine\\Camera.h"
@@ -113,7 +112,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             startTime = nowTime;
         }
 
-        if (nowTime - lastUpdateTime <= 1000.0f / 60)
+        if ((nowTime - lastUpdateTime) * 60 <= 1000)
         {
             continue;
         }
@@ -132,7 +131,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         pRootJob->UpdateSub();
 
 
-        if (Input::IsMouseButtonDown(0))
+        if (Input::IsKeyDown(DIK_ESCAPE))
         {
             static int cnt = 0;
             cnt++;

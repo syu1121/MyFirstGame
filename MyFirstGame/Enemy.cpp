@@ -13,7 +13,7 @@ Enemy::~Enemy()
 void Enemy::Initialize()
 {
 	pFbx_ = new Fbx;
-	pFbx_->Load("oden.fbx");
+	pFbx_->Load("Oden.fbx");
 	transform_.position_ = { 0.0f,0.0f,50.0f };
 
 	SphereCollider* col = new SphereCollider(0.5f);

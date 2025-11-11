@@ -25,10 +25,10 @@ void GameObject::DrawSub()
 	// 0.自分を描画
 	Draw();
 	// 1.子オブジェクトを描画　childListの各要素に対してDrawを呼ぶ
-	/*for (auto child : childList_)
+	for (auto child : childList_)
 	{
 		child->DrawSub();
-	}*/
+	}
 }
 
 void GameObject::UpdateSub()

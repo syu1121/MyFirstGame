@@ -18,7 +18,7 @@ Player::~Player()
 void Player::Initialize()
 {
 	//pFbx_ = new Fbx;
-	hModel_ = Model::Load("oden.fbx");
+	hModel_ = Model::Load("Oden.fbx");
 	assert(hModel_ >= 0);
 
 	transform_.scale_.x = 0.7f;
