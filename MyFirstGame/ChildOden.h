@@ -8,6 +8,7 @@ class ChildOden :
 {
 private:
     Fbx* pFbx_;
+    int hModel_; // ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹
 public:
     ChildOden(GameObject* parent);
     ~ChildOden();

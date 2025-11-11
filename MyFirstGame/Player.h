@@ -12,6 +12,7 @@ class Player :
     ChildOden* pRChildOden_;
     ChildOden* pLChildOden_;
     ChildOden* pTChildOden_;
+    int hModel_;
 public:
     Player(GameObject* parent);
     ~Player();
