@@ -15,13 +15,17 @@ TestScene::~TestScene()
 
 void TestScene::Initialize()
 {
-    hModel_ = Model::Load("sikaku.fbx");
+    hModel_ = Model::Load("Sikaku.fbx");
     assert(hModel_ >= 0);
+
+    transform_.scale_.x = 0.7f;
+    transform_.scale_.y = 0.7f;
+    transform_.scale_.z = 0.7f;
 }
 
 void TestScene::Update()
 {
-    
+    transform_.rotate_.y += 1.0f;
     if (Input::IsKeyDown(DIK_SPACE))
     {
 
@@ -33,6 +37,7 @@ void TestScene::Update()
 
 void TestScene::Draw()
 {
+    Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
 
    // MessageBoxA(0, "•\Ž¦‚³‚ê‚½", "TestScene", MB_OK);
