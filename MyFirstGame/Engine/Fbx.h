@@ -50,6 +50,9 @@ class Fbx
 	int polygonCount_;
 	int materialCount_;
 
+	
+
+
 public:
 
 	Fbx();

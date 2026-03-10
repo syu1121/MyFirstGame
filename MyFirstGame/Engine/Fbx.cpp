@@ -169,9 +169,13 @@ void Fbx::InitVertex(FbxMesh* mesh)
 			//頂点の法線
 			FbxVector4 normal;
 			mesh->GetPolygonVertexNormal(poly, vertex, normal);
-			vertices[index].normal = XMVectorSet((float)normal[0], (float)normal[1], (float)normal[2], 0.0f);
+			vertices[index].normal
+				= XMVectorSet((float)normal[0], (float)normal[1], (float)normal[2], 0.0f);
 
-			
+			//頂点の法線
+			FbxVector4 Normal;
+			mesh->GetPolygonVertexNormal(poly, vertex, Normal);	//ｉ番目のポリゴンの、ｊ番目の頂点の法線をゲット
+			vertices[index].normal = XMVectorSet((float)Normal[0], (float)Normal[1], (float)Normal[2], 0.0f);
 		}
 	}
 	// 頂点バッファ作成
@@ -316,16 +320,6 @@ void Fbx::InitMaterial(FbxNode* pNode)
 			FbxDouble3 color = ((FbxSurfaceLambert*)pMaterial)->Diffuse.Get();
 			pMaterialList_[i].diffuse = { (float)color[0], (float)color[1], (float)color[2], 1.0f };
 			//pMaterialList_[i].diffuse = XMFLOAT4((float)color[0], (float)color[1], (float)color[2], 1.0f);
-			
-
-
-
-
-
-			//マテリアルの色
-			/*FbxSurfaceLambert* pMaterial = (FbxSurfaceLambert*)pNode->GetMaterial(i);
-			FbxDouble3  diffuse = pMaterial->Diffuse;
-			pMaterialList_[i].diffuse = XMFLOAT4((float)diffuse[0], (float)diffuse[1], (float)diffuse[2], 1.0f);*/
 		}
 
 	}

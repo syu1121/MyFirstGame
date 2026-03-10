@@ -17,5 +17,7 @@ public:
     void Update() override; // XV
     void Draw() override; // •`‰æ
     void Release() override; // ‰ğ•ú
+
+    void OnCollision(GameObject* other) override;
 };
 

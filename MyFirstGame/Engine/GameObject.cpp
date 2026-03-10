@@ -20,6 +20,16 @@ GameObject::~GameObject()
 {
 }
 
+void GameObject::OnCollision(GameObject* other)
+{
+	
+}
+
+string GameObject::GetName()
+{
+	return objectName_;
+}
+
 void GameObject::DrawSub()
 {
 	// 0.自分を描画
@@ -135,7 +145,7 @@ void GameObject::Collision(GameObject* pTarget)
 	// 閾値＝お互いの半径+半径
 	float thisR = this->pCollider_->GetRadius();
 	float tgtR = pTarget->pCollider_->GetRadius();
-	float thre = (thisR + tgtR) * (thisR + tgtR);
+	float ther = (thisR + tgtR) * (thisR + tgtR);
 	// ①2つのコライダーの距離計算をする
 	XMFLOAT3 thisP = this->transform_.position_;
 	XMFLOAT3 tgtP = pTarget->transform_.position_;
@@ -143,18 +153,19 @@ void GameObject::Collision(GameObject* pTarget)
 				 (thisP.y - tgtP.y) * (thisP.y - tgtP.y) +
 				 (thisP.z - tgtP.z) * (thisP.z - tgtP.z);
 	// ②コライダー同士が交差していたら
-	if (dist <= thre)
+	if (dist <= ther)
 	{
 		// ③なんかする
-		MessageBoxA(0, "ぶつかった", "Collider", MB_OK);
-
+		//MessageBoxA(0, "ぶつかった", "Collider", MB_OK);
+		this->OnCollision(pTarget);
+		pTarget->OnCollision(this);
 	}
 
 }
 
 void GameObject::RoundRobin(GameObject* pTarget)
 {
-	// ①自分にコライダーがなかったらreturn
+	// ①自分にコライダーがなかったら return
 	if (pCollider_ == nullptr)
 	{
 		return;

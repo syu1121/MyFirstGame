@@ -4,6 +4,7 @@
 #include "Engine\\Model.h"
 #include "Engine\\SphereCollider.h"
 #include "Engine\\Input.h"
+#include "Bullet.h"
 
 
 Player::Player(GameObject* parent)
@@ -24,6 +25,8 @@ void Player::Initialize()
 	transform_.scale_.x = 0.7f;
 	transform_.scale_.y = 0.7f;
 	transform_.scale_.z = 0.7f;
+	transform_.position_.x = -20.0f;
+	transform_.position_.z = 40.0f;
 
 	pRChildOden_ = (ChildOden* )Instantiate<ChildOden>(this);
 	pLChildOden_ = (ChildOden* )Instantiate<ChildOden>(this);
@@ -32,8 +35,8 @@ void Player::Initialize()
 	pLChildOden_->SetPosition(-2.0f, 1.0f, 0.0f);
 	pTChildOden_->SetPosition(0.0f, 5.0f, 0.0f);
 	
-	SphereCollider* col = new SphereCollider(1.0);
-	AddCollider(col);
+	/*SphereCollider* col = new SphereCollider(1.0);
+	AddCollider(col);*/
 }
 
 void Player::Update()
@@ -41,12 +44,17 @@ void Player::Update()
 	static float x = 0.0;
 	float tx = sin(x) * 5.0f;
 	x += 0.02f;
+	
 
-	transform_.rotate_.y += 1.0f;
+	//transform_.rotate_.y += 1.0f;
 
-	if (Input::IsKey(DIK_SPACE))
+	//Instantiate<Bullet>(this);
+
+	if (Input::IsKey(DIK_A))
 	{
-		transform_.position_.z += 0.2f;
+		//transform_.position_.z += 0.2f;
+		Bullet* b = (Bullet*)Instantiate<Bullet>(GetRootJob());
+		b->SetPosition(transform_.position_);
 	}
 
 	/*if (transform_.rotate_.y > 720.0f)

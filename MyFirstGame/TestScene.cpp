@@ -40,7 +40,7 @@ void TestScene::Draw()
     Model::SetTransform(hModel_, transform_);
     Model::Draw(hModel_);
 
-   // MessageBoxA(0, "•\Ž¦‚³‚ê‚½", "TestScene", MB_OK);
+   // 
 }
 
 void TestScene::Release()
